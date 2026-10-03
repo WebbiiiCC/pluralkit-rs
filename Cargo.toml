@@ -1,0 +1,37 @@
+[package]
+name = "pluralkit"
+version = "0.1.0"
+edition = "2024"
+authors = ["Webbiii"]
+description = "A simple async client for the PluralKit Api"
+license = "MIT"
+keywords = ["pluralkit", "api", "client", "async"]
+categories = ["api-bindings"]
+repository = "https://github.com/WebbiiiCC/pluralkit-rs"
+readme = "README.md"
+
+[dependencies.tokio]
+version = "1.53"
+default-features = false
+features = ["sync"]
+
+[dependencies.serde]
+version = "1.0"
+features = ["derive"]
+
+[dependencies.reqwest]
+version = "0.13"
+features = ["json"]
+
+[dependencies.chrono]
+version = "0.4"
+features = ["serde"]
+optional = true
+
+[features]
+default = ["systems", "members", "messages"]
+members = []
+messages = []
+privacy = []
+systems = []
+chrono = ["dep:chrono"]
