@@ -204,7 +204,3 @@ fn extract_rate_limit_info_from_headers(headers: &HeaderMap) -> Option<(RateLimi
     }
     None
 }
-
-#[cfg(test)]
-mod tests {
-}
