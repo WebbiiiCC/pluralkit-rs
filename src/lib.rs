@@ -99,7 +99,7 @@ impl PKClient {
     pub async fn delete_member(&self, token: PKToken<'_>, member_ref: &str) -> PKResult<()> {
         handler::members::delete_member(&self, token, member_ref).await
     }
-    
+
     #[cfg(feature = "messages")]
     pub async fn get_proxied_message(&self, token: Option<PKToken<'_>>, message_id: &str) -> PKResult<ProxiedMessage> {
         handler::messages::get_proxied_message(&self, token, message_id).await
@@ -147,7 +147,9 @@ impl PKClient {
             let resp = req.send().await.map_err(|err| Error::Reqwest(err))?;
 
             let headers = resp.headers();
-            extract_rate_limit_info_from_headers(headers);
+            if let Some((scope, info)) = extract_rate_limit_info_from_headers(headers) {
+                self.rate_limit.update(scope, info).await;
+            }
 
             return match resp.status() {
                 status if status.is_success() => {
