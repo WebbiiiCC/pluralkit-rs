@@ -3,7 +3,7 @@ use crate::model::DateTime;
 #[cfg(feature = "privacy")]
 use crate::model::PrivacyValue;
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Default, Clone, Deserialize, Serialize)]
 pub struct Member {
     pub id: String,
     pub uuid: String,
@@ -46,7 +46,7 @@ pub struct Member {
 }
 
 #[cfg(feature = "privacy")]
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Default, Clone, Deserialize, Serialize)]
 pub struct MemberPrivacy {
     pub visibility: PrivacyValue,
     #[serde(rename = "name_privacy")]
@@ -67,7 +67,7 @@ pub struct MemberPrivacy {
     pub proxy: PrivacyValue,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Default, Clone, Deserialize, Serialize)]
 pub struct ProxyTag {
     pub prefix: Option<String>,
     pub suffix: Option<String>,

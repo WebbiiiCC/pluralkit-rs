@@ -3,7 +3,7 @@ use crate::model::DateTime;
 use crate::model::members::Member;
 use crate::model::systems::System;
 
-#[derive(Debug, Clone, Deserialize)]
+#[derive(Debug, Default, Clone, Deserialize)]
 pub struct ProxiedMessage {
     pub timestamp: DateTime,
     /// The ID of the message sent by the webhook.

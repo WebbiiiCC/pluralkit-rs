@@ -3,7 +3,7 @@ use crate::model::DateTime;
 #[cfg(feature = "privacy")]
 use crate::model::PrivacyValue;
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Default, Clone, Deserialize, Serialize)]
 pub struct System {
     pub id: String,
     pub uuid: String,
@@ -30,7 +30,7 @@ pub struct System {
 }
 
 #[cfg(feature = "privacy")]
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Default, Clone, Deserialize, Serialize)]
 pub struct SystemPrivacy {
     #[serde(rename = "name_privacy")]
     pub name: PrivacyValue,
@@ -52,7 +52,7 @@ pub struct SystemPrivacy {
     pub front_history: PrivacyValue,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Default, Clone, Deserialize, Serialize)]
 pub struct SystemSettings {
     pub timezone: String,
     /// whether proxied messages can be pinged using the 🔔 reaction
@@ -85,7 +85,7 @@ pub struct SystemSettings {
     pub name_format: String,
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Default, Clone, Deserialize, Serialize)]
 pub struct PublicSystemSettings {
     /// whether proxied messages can be pinged using the 🔔 reaction
     pub pings_enabled: bool,
@@ -107,9 +107,10 @@ pub struct PublicSystemSettings {
     pub name_format: String,
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Deserialize, Serialize)]
+#[derive(Debug, Default, Clone, Copy, PartialEq, Eq, Deserialize, Serialize)]
 pub enum IDPaddingFormat {
     /// do not pad 5-character ids
+    #[default]
     Off,
     /// add a padding space to the left of 5-character ids in lists
     Left,
@@ -117,9 +118,10 @@ pub enum IDPaddingFormat {
     Right,
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Deserialize, Serialize)]
+#[derive(Debug, Default, Clone, Copy, PartialEq, Eq, Deserialize, Serialize)]
 pub enum ProxySwitchAction {
     /// do nothing
+    #[default]
     Off,
     /// if the currently proxied member is not present in the current switch, log a new switch with this member
     New,
