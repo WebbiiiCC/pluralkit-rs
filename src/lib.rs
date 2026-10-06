@@ -176,7 +176,7 @@ impl PKClient {
                     let (error_code, message, model_errors) = if let Ok(data) = resp.json::<ErrorResponse>().await {
                         (data.code, data.message, data.errors)
                     } else {
-                        (-1, String::new(), vec![])
+                        (-1, String::new(), None)
                     };
                     Err(Error::ApiError(ApiError {
                         status_code,

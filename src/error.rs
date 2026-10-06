@@ -1,3 +1,4 @@
+use std::collections::HashMap;
 use reqwest::StatusCode;
 use serde::Deserialize;
 
@@ -13,7 +14,7 @@ pub enum Error {
 pub struct ApiError {
     pub status_code: StatusCode,
     pub error_code: i32,
-    pub model_errors: Vec<ModelError>,
+    pub model_errors: Option<HashMap<String, Vec<ModelError>>>,
     pub message: String,
 }
 
@@ -31,7 +32,7 @@ pub(crate) struct ErrorResponse {
     pub code: i32,
     pub message: String,
     #[serde(default)]
-    pub errors: Vec<ModelError>,
+    pub errors: Option<HashMap<String, Vec<ModelError>>>,
     #[serde(default)]
     pub retry_after: Option<u64>,
 }
