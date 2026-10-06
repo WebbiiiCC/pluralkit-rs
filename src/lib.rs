@@ -173,14 +173,15 @@ impl PKClient {
                     Err(Error::RateLimitExceeded)
                 }
                 status_code => {
-                    let (error_code, message) = if let Ok(data) = resp.json::<ErrorResponse>().await {
-                        (data.code, data.message)
+                    let (error_code, message, model_errors) = if let Ok(data) = resp.json::<ErrorResponse>().await {
+                        (data.code, data.message, data.errors)
                     } else {
-                        (-1, String::new())
+                        (-1, String::new(), vec![])
                     };
                     Err(Error::ApiError(ApiError {
                         status_code,
                         error_code,
+                        model_errors,
                         message,
                     }))
                 }
