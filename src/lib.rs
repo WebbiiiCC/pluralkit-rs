@@ -24,12 +24,12 @@ pub type PKResult<T> = Result<T, Error>;
 pub type PKToken<'a> = &'a str;
 
 const API_BASE_URL: &str = "https://api.pluralkit.me/v2";
-const MAX_RETRIES: u32 = 3;
 
 pub struct PKClient {
     pub(crate) http_client: Client,
     pub(crate) rate_limit: RateLimiter,
     pub user_agent: String,
+    pub max_retries: u32,
 }
 
 impl PKClient {
@@ -42,6 +42,7 @@ impl PKClient {
             http_client,
             rate_limit: RateLimiter::new(),
             user_agent: format!("{user_agent} [pluralkit-rs {}]", env!("CARGO_PKG_VERSION")),
+            max_retries: 3,
         }
     }
 
@@ -162,7 +163,7 @@ impl PKClient {
                 StatusCode::TOO_MANY_REQUESTS => {
                     if let Ok(data) = resp.json::<ErrorResponse>().await {
                         if let Some(retry_after) = data.retry_after {
-                            if retries < MAX_RETRIES {
+                            if retries < self.max_retries {
                                 sleep(Duration::from_millis(retry_after)).await;
                                 retries += 1;
                                 continue;
