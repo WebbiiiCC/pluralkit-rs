@@ -12,8 +12,9 @@ pub type DateTime = String;
 pub type DateTime = chrono::DateTime<chrono::Utc>;
 
 #[cfg(feature = "privacy")]
-#[derive(Debug, Clone, Copy, serde::Deserialize, serde::Serialize)]
+#[derive(Debug, Default, Clone, Copy, serde::Deserialize, serde::Serialize)]
 pub enum PrivacyValue {
+    #[default]
     Public,
     Private,
 }
